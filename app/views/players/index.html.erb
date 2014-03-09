@@ -1,0 +1,11 @@
+<%= form_for :player, :url => { :action => "create" } do |f| %>
+  <%= f.text_field :first %>
+
+  <%= f.submit "Create" %>
+<% end %>
+
+<%= form_for :player,:url=>{:action=>:update} do |form| %>
+<%= form.text_field :first%>
+....
+<%= form.submit "Save", :class => "submit" ,:class =>"Button_style"%>
+<% end %>
