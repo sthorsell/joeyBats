@@ -1,33 +1,11 @@
 $(document).on("click", ".open-myModal", function () {
 	
      var myBookId = $(this).data('id');
+     var teamId = $(this).data('teamid');
      $("#cafeId").val( myBookId );
+     $("#pcafeID1").val( myBookId );
      $("#player_pcafeID1").val( myBookId );
 	$("#player_cafeID1").val( $("#cafeId").val() );
-	// $("#avg").text( myBookId );
-	// $('#t').load('/players/1');
-
-	$.ajax({
-	  cache: false,
-	  type:    "GET",
-	  url:     "/players/" + myBookId, // see the code below
-	  error: function() {
-	    // handling with 'xhr', 'status' and 'ex' variables
-	    console.log("error");
-	  },
-	  success: function(t) {
-		console.log(t)
-	    // handling with 'xhr', 'status' and 'ex' variables
-	  }
-	
-	});
-	
-	// $.getJSON("/players/" + myBookId, function(data) {
-	//     for (var i in data) {
-	//         $('input[id="' + 'player_' +i+'"]').val(data[i]);
-	//     }
-	// });
-	
 	
 	
 	$.getJSON("/players/" + myBookId, function(data) {
@@ -50,24 +28,51 @@ $(document).on("click", ".open-myModal", function () {
 		// console.log(obj.notes)
 		// console.log(obj.sbcValue)
 		if(obj.notes != null){
-			$("#player_notes").text(obj.notes);
-			$("#player_pnotes").text(obj.notes);
+			$("#notes").text(obj.notes);
+			$("#pnotes").text(obj.notes);
 		}
 	
-		$("#player_espnNotes").text(obj.espnNotes);
-		$("#player_pespnNotes").text(obj.espnNotes);
+		$("#espnNotes").text(obj.espnNotes);
+		$("#pespnNotes").text(obj.espnNotes);
 		
-		$("#player_sbcValue").val(obj.sbcValue);
-		$("#player_psbcValue").val(obj.sbcValue);
-		$("#player_teamSelect").val(obj.team_id);
-		$("#player_pteamSelect").val(obj.team_id);
-		$("#player_teamPos").val(obj.tp);
-		$("#player_pteamPos").val(obj.tp);
+		$("#sbcValue").val(obj.sbcValue);
+		$("#psbcValue").val(obj.sbcValue);
+		$("#teamSelect").val(obj.team_id);
+		$("#pteamSelect").val(obj.team_id);
+		$("#teamPos").val(obj.tp);
+		$("#selectedPos").val(obj.starter_id);
+
+		$.getJSON("/teams/" + teamId, function(data) {
+
+		console.log(data);
+		$.each(data, function (index, value) {
+			var opt = $("<option></option>").attr("value",index).text(value);
+			if(value === '') {
+				opt.prop("disabled", true); 
+			}
+    		$('#positionsSelect').append(opt);
+		});
 	});
+	});
+
 	
 	
 	
 });
 
+    // $('form[data-async]').on('submit', function(event) {
+    	$(document).on("submit", "form[data-async]", function () {
+
+        var $form = $(this);
+        var target = $($form.attr('data-target'));
+        alert($form.serialize());
+        $.ajax({
+            url: '/updatePlayer/5',
+            data: $form.serialize(),
+            dataType: "JSON" 
+        });
+
+
+    });
 
 

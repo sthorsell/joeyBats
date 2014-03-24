@@ -1,5 +1,6 @@
 JoeyBats::Application.routes.draw do
 
+  match "/updatePlayer/:id" => "players#save"
   get "home/index"
   post "home/index"
   get "home/read"
@@ -10,12 +11,14 @@ JoeyBats::Application.routes.draw do
   get "players/update"
   post "players/create"
   post "players/update"
-  post "players/save"
+  # post "players/save"
   
   get "settings/index"
   get "settings/loadStuff"
   match "/players/:id" => "players#show"
-  match "/players/data/:id" => "players#d"
+  # match "/players/data/:id" => "players#d"
+  match "/teams/:id" => "teams#getPositions"
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

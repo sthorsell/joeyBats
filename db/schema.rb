@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140311014311) do
+ActiveRecord::Schema.define(:version => 20140323182055) do
 
   create_table "add_our_value_to_players", :force => true do |t|
     t.integer  "ourValue"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20140311014311) do
     t.float    "era"
     t.float    "whip"
     t.float    "k9"
+    t.integer  "starter_id"
   end
 
   create_table "teams", :force => true do |t|
