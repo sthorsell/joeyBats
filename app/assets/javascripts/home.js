@@ -28,29 +28,39 @@ $(document).on("click", ".open-myModal", function () {
 		// console.log(obj.notes)
 		// console.log(obj.sbcValue)
 		if(obj.notes != null){
-			$("#notes").text(obj.notes);
-			$("#pnotes").text(obj.notes);
+			$("#player_notes").text(obj.notes);
+			$("#player_pnotes").text(obj.notes);
 		}
 	
-		$("#espnNotes").text(obj.espnNotes);
-		$("#pespnNotes").text(obj.espnNotes);
+		$("#player_espnNotes").text(obj.espnNotes);
+		$("#player_pespnNotes").text(obj.espnNotes);
 		
-		$("#sbcValue").val(obj.sbcValue);
-		$("#psbcValue").val(obj.sbcValue);
-		$("#teamSelect").val(obj.team_id);
-		$("#pteamSelect").val(obj.team_id);
-		$("#teamPos").val(obj.tp);
-		$("#selectedPos").val(obj.starter_id);
+		$("#player_sbcValue").val(obj.sbcValue);
+		$("#player_psbcValue").val(obj.sbcValue);
+		$("#player_teamSelect").val(obj.team_id);
+		$("#player_pteamSelect").val(obj.team_id);
+		$("#player_teamPos").val(obj.tp);
+		$("#player_pteamPos").val(obj.starter_id);
 
 		$.getJSON("/teams/" + teamId, function(data) {
 
 		console.log(data);
+		$('#player_pteamPos').empty();
 		$.each(data, function (index, value) {
 			var opt = $("<option></option>").attr("value",index).text(value);
 			if(value === '') {
 				opt.prop("disabled", true); 
 			}
-    		$('#positionsSelect').append(opt);
+    		$('#player_pteamPos').append(opt);
+		});
+
+		$('#player_teamPos').empty();
+		$.each(data, function (index, value) {
+			var opt = $("<option></option>").attr("value",index).text(value);
+			if(value === '') {
+				opt.prop("disabled", true); 
+			}
+    		$('#player_teamPos').append(opt);
 		});
 	});
 	});

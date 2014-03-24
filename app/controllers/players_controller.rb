@@ -21,20 +21,18 @@ class PlayersController < ApplicationController
     #     p.team_id = params[:player][:teamSelect]
     #     p.save
     puts params
-    puts params.psbcValue
-    put 'values'
-    if params[:cafeID1]
-      @id = params[:cafeID1]
+    if params[:player][:cafeID1]
+      @id = params[:player][:cafeID1]
       Player.find(@id).update_attribute(:notes, params[:player][:notes])
       Player.find(@id).update_attribute(:team_id, params[:player][:teamSelect])
       Player.find(@id).update_attribute(:sbcValue, params[:player][:sbcValue])
       Player.find(@id).update_attribute(:tp, params[:player][:teamPos])
-    elsif params[:pcafeID1]
-      @id = params[:pcafeID1]
-      Player.find(@id).update_attribute(:notes, params[:pnotes])
-      Player.find(@id).update_attribute(:team_id, params[:pteamSelect])
-      Player.find(@id).update_attribute(:sbcValue, params[:psbcValue])
-      Player.find(@id).update_attribute(:starter_id, params[:selectedPos])
+    elsif params[:player][:pcafeID1]
+      @id = params[:player][:pcafeID1]
+      Player.find(@id).update_attribute(:notes, params[:player][:pnotes])
+      Player.find(@id).update_attribute(:team_id, params[:player][:pteamSelect])
+      Player.find(@id).update_attribute(:sbcValue, params[:player][:psbcValue])
+      Player.find(@id).update_attribute(:starter_id, params[:player][:pteamPos])
     end
     
     
@@ -88,7 +86,7 @@ class PlayersController < ApplicationController
     
     puts "OLDID"
     puts Player.find(@id).team_id
-    # redirect_to :root
+    redirect_to :back
   end
   
   def update
