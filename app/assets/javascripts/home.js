@@ -58,11 +58,12 @@ $(document).on("click", ".open-myModal", function () {
 		$('#player_teamPos').empty();
 		$.each(data, function (index, value) {
 			var opt = $("<option></option>").attr("value",index).text(value[0]);
-			if(value[1] === true) {
+			if(value[1] === true && index != obj.starter_id) {
 				opt.prop("disabled", true); 
 			}
     		$('#player_teamPos').append(opt);
 		});
+		$('#player_teamPos').val(obj.starter_id);
 	});
 	});
 

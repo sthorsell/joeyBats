@@ -26,7 +26,7 @@ class PlayersController < ApplicationController
       Player.find(@id).update_attribute(:notes, params[:player][:notes])
       Player.find(@id).update_attribute(:team_id, params[:player][:teamSelect])
       Player.find(@id).update_attribute(:sbcValue, params[:player][:sbcValue])
-      Player.find(@id).update_attribute(:tp, params[:player][:teamPos])
+      Player.find(@id).update_attribute(:starter_id, params[:player][:teamPos])
     elsif params[:player][:pcafeID1]
       @id = params[:player][:pcafeID1]
       Player.find(@id).update_attribute(:notes, params[:player][:pnotes])
@@ -34,8 +34,11 @@ class PlayersController < ApplicationController
       Player.find(@id).update_attribute(:sbcValue, params[:player][:psbcValue])
       Player.find(@id).update_attribute(:starter_id, params[:player][:pteamPos])
     end
-    
-    
+    p = Player.find(@id)
+    if p.team_id == 1
+      p.starter_id = nil
+    end
+
     @actual = Team.all
 		@actual.shift
 		k = @actual.sort {|a,b| a.teamPk <=> b.teamPk}

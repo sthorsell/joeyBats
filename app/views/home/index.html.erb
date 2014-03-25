@@ -137,7 +137,7 @@
 		<input type="hidden" id="cafeId" value="" />
 	
 		<div class="row-fluid">
-			<%= form.select :teamSelect, options_from_collection_for_select(Team.all, 'id', 'teamName'), {},
+			<%= form.select :teamSelect, options_from_collection_for_select(Team.where(year_id:2), 'id', 'teamName'), {},
 			 :class => "span2"%>
 			<%= form.select :teamPos, [['C','C'],['1B','1B'],['2B','2B'],['SS','SS'],['3B','3B'],
 			 ['P','P'],['OF','OF']], {}, :class => "span1"%>
@@ -199,7 +199,7 @@
 	
 		<input type="hidden" id="pcafeId" value="" />
 		<div class="row-fluid">
-			<%= form.select :pteamSelect, options_from_collection_for_select(Team.all, 'id', 'teamName'), {},
+			<%= form.select :pteamSelect, options_from_collection_for_select(Team.where(year_id:2), 'id', 'teamName'), {},
 			 :class => "span2"%>
 			<%= form.select :pteamPos, [], {}, :class => "span1"%>
 		  </div>	

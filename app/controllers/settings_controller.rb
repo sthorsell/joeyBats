@@ -22,19 +22,23 @@ class SettingsController < ApplicationController
           
           pla.position = k
           pla.mlbTeam = z[1].strip.split(" ")[0]
-          puts pla.mlbTeam
            
           if p.css('tr').size == 4
             pla.espnNotes = p.css('tr')[3].text
+            pla.espnNotes = pla.espnNotes.force_encoding("ISO-8859-1").encode("utf-8", replace:nil)
           end
           
           pla.first = p.css('a').text
+          n = pla.first.strip.split(" ")
+          pla.last = n[1] + ', ' + n[0]
           pla.team_id = Team.find_by_teamName("Free").id
           pla.espnId = p.css('a').attribute("playerid").value
           pla.espnValue = 0
           pla.sbcValue = 0
+          # Need to change this from hard code
+          # pla.year_id = 2
           
-          if p.css('tr')[2].css('td')[0].text.include? "2013"
+          if p.css('tr')[2].css('td')[0].text.include? "2014"
               pla.ab = p.css('tr')[2].css('td')[2].text 
               pla.r = p.css('tr')[2].css('td')[3].text 
               pla.hr = p.css('tr')[2].css('td')[4].text 
@@ -50,17 +54,14 @@ class SettingsController < ApplicationController
 
           array = "NYM, Mil, Pit, LAD, Col, Cin, Atl, Mia, ChC, StL, Wsh, Phi, SF, SD, Ari"
           if array.include? pla.mlbTeam
-              puts 'already here'
               pla.delete
-          elsif Player.find_by_espnId(pla.espnId)
+          elsif Player.where("team_id = 1").find_by_espnId(pla.espnId)
               p = Player.find_by_espnId(pla.espnId)
               p.position = p.position + ', ' + k
               p.save
-              pla.delete
-            
+              pla.delete            
           else
-            puts "teamName"
-              puts pla.mlbTeam
+            puts pla.attributes
               pla.save
           end     
 
@@ -97,7 +98,7 @@ class SettingsController < ApplicationController
                 pla.espnValue = 0
                 pla.sbcValue = 0
                 
-                if p.css('tr')[2].css('td')[0].text.include? "2013"
+                if p.css('tr')[2].css('td')[0].text.include? "2014"
                     pla.g =  p.css('tr')[2].css('td')[2].text
                     pla.gs = p.css('tr')[2].css('td')[3].text
                     pla.ip = p.css('tr')[2].css('td')[4].text
@@ -129,23 +130,23 @@ class SettingsController < ApplicationController
         end
     end
     
-    doc = Nokogiri::HTML(open("http://espn.go.com/fantasy/baseball/story/_/page/MLBDK2K13ranks_AL_300/top-300-players"))
-    players = doc.css('tr.last')
-    for p in players
+    # doc = Nokogiri::HTML(open("http://espn.go.com/fantasy/baseball/story/_/page/MLBDK2K13ranks_AL_300/top-300-players"))
+    # players = doc.css('tr.last')
+    # for p in players
         
-        if (p.css('td')[0].text.strip  =~ /^[-+]?[0-9]+$/)
-            puts p.css('td')[7].text.strip
-            pla = Player.find_by_first(p.css('td')[1].text.strip)
-            if pla
-              pla.espnValue = p.css('td')[7].text.strip.gsub('$', '')
-              pla.save
-            end
-            # puts p.css('td')[1].text.strip
-            # puts p.css('td')[7].text.strip
-        end
+    #     if (p.css('td')[0].text.strip  =~ /^[-+]?[0-9]+$/)
+    #         puts p.css('td')[7].text.strip
+    #         pla = Player.find_by_first(p.css('td')[1].text.strip)
+    #         if pla
+    #           pla.espnValue = p.css('td')[7].text.strip.gsub('$', '')
+    #           pla.save
+    #         end
+    #         # puts p.css('td')[1].text.strip
+    #         # puts p.css('td')[7].text.strip
+    #     end
 
         
-    end
+    # end
     
     redirect_to "/"
   end

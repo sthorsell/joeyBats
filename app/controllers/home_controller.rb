@@ -3,10 +3,11 @@ class HomeController < ApplicationController
     @currentTeam = Team.first.id
     @currentPos = 'All'
     @currentSort = 'espnValue'
-    puts "IDEX"
+    puts "curteam"
+    puts @currentTeam
     @players = Player.find_all_by_team_id(@currentTeam)
     
-    @teams = Team.all
+    @teams = Team.where(year_id:2)
     @players.sort! {|b,a| a.espnValue <=> b.espnValue}
     puts params
     @result = session[:res]
@@ -48,7 +49,7 @@ class HomeController < ApplicationController
     else
       @players.sort! {|b,a| a.espnValue <=> b.espnValue}    
     end
-    @teams = Team.all
+    @teams = Team.where(year_id:2)
 
     render "index"
     
