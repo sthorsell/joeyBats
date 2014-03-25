@@ -14,6 +14,8 @@ JoeyBats::Application.routes.draw do
   
   get "settings/index"
   get "settings/loadStuff"
+  get "plan/index"
+  post "plan/save"
   match "/players/:id" => "players#show"
   # match "/players/data/:id" => "players#d"
   match "/teams/:id" => "teams#getPositions"

@@ -13,9 +13,12 @@
 	  </script>
 	<% end %>
 	
-		<% @actualTeams = Team.all%>
+		<% @actualTeams = Team.where(year_id:2)%>
 		<% @actualTeams.shift%>
-		
+		<% @positions = ['C', 'C', '1B', '2B', 'SS', 'MI', '3B',
+     'CI','OF1', 'OF2', 'OF3', 'OF4', 'OF5', 'DH',
+      'P', 'P', 'P', 'P', 'P', 'P', 'P',
+       'P', 'P']%>
 		<% @actualTeams.each_with_index do |t, i|%>
 			
 			<% if i == 4%>
@@ -78,8 +81,9 @@
 			<div class="span2" style="width: 175px;">
 			<table class="table table-condensed">
 				<th><%= t.teamName %></th><th><%=t.sbcScore%></th><th>$</th>
-				<% t.players.each do |p|%>
+				<% t.startingLineup.each_with_index do |p,i|%>
 					<tr>
+						<% if p != nil%>
 						<% if p.position.include? 'SP'  or p.position.include? 'RP'%>
 							<% @link = '#pModal'%>
 						<% else %>
@@ -88,10 +92,11 @@
 						<tr><td><a href="<%=@link%>" role="button" class="open-myModal btn btn-mini
 							 btn-primary"
 							 data-target="<%=@link%>" data-id="<%= p.id%>" data-toggle="modal"><%=
-							 p.first%></a></td>
-
-						<td><%= p.tp %></td>
+							 p.first%></a></td>						
 						<td><%= p.sbcValue%></td>
+						<%else%><td></td><td></td>
+						<%end%>
+						<td><%= @positions[i] %></td>
 					</tr>
 			
 				<% end %>
@@ -100,7 +105,7 @@
 				</tr></td>
 
 				<tr><td>
-					Max bid: <%= (260 - t.players.sum(&:sbcValue) - (23 - t.players.count))%> 				
+					Max bid: <%= (260 - t.players.sum(&:sbcValue) - (23 - t.startingLineup.count))%> 				
 				</td></tr>
 			</table>
 			</div>

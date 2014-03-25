@@ -9,7 +9,7 @@ class SettingsController < ApplicationController
     
     # f = File.open('file.txt', 'a+')
     # f.write("AB\tR\tHR\tRBI\tBB\tK\tSB\tAVG\tOBP\tSLG\tOPS\n")
-    Player.delete_all(:year=>2014)
+    Player.delete_all([" created_at between ? AND ?", Time.zone.now.beginning_of_year, Time.zone.now.end_of_year])
     positions = {"C" => 0, "1B" => 1, "2B" => 2, "3B" => 3, "SS" => 4, "OF" => 5, "DH" => 11}
     # for j in 0..15
     positions.each_pair do|k,v|

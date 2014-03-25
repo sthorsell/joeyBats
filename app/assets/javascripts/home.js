@@ -47,17 +47,18 @@ $(document).on("click", ".open-myModal", function () {
 		console.log(data);
 		$('#player_pteamPos').empty();
 		$.each(data, function (index, value) {
-			var opt = $("<option></option>").attr("value",index).text(value);
-			if(value === '') {
+			var opt = $("<option></option>").attr("value",index).text(value[0]);
+			if(value[1] === true && index != obj.starter_id) {
 				opt.prop("disabled", true); 
 			}
     		$('#player_pteamPos').append(opt);
 		});
+		$('#player_pteamPos').val(obj.starter_id);
 
 		$('#player_teamPos').empty();
 		$.each(data, function (index, value) {
-			var opt = $("<option></option>").attr("value",index).text(value);
-			if(value === '') {
+			var opt = $("<option></option>").attr("value",index).text(value[0]);
+			if(value[1] === true) {
 				opt.prop("disabled", true); 
 			}
     		$('#player_teamPos').append(opt);

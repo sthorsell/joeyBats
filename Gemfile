@@ -27,6 +27,10 @@ end
 
 gem 'jquery-rails'
 gem 'nokogiri'
+gem 'jquery-ui-rails'
+gem 'jquery-ui-themes'
+gem 'jquery-ui-form'
+gem 'jquery-tablesorter'
 require 'open-uri'
 
 # To use ActiveModel has_secure_password

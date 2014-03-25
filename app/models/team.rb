@@ -111,5 +111,15 @@ class Team < ActiveRecord::Base
       a = 0
     end
   end
+
+  def startingLineup
+    starters = Array.new(23)
+
+    startingPlayers = players.where("starter_id IS NOT NULL", "starter_id < 23")
+    for p in startingPlayers
+      starters[p.starter_id] = p;
+    end
+    return starters
+  end
   
 end

@@ -1,0 +1,14 @@
+<!-- <script type="text/javascript" src="/path/to/jquery.tablesorter.js"></script>  -->
+<% @players = Player.where(team_id:2) %>
+<table id="test" cellspacing="1" class="tablesorter">             
+    <thead>
+        <th>name</th>
+    </thead> 
+    <tbody> 
+        <% @players.each do |pl| %>
+            <tr>
+            <td><%=pl.first%></td>
+            </tr>
+        <%end%>
+    </tbody> 
+</table>
