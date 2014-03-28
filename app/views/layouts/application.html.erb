@@ -19,9 +19,10 @@
           <%= link_to "PowaTime", root_path, {:class => "brand"}%>
         <div class="nav-collapse">
           <ul class="nav">
-            <li><%= link_to "Browse Videos" %></li>
-            <li><%= link_to "Import" %></li>
             <li><%= link_to 'Plan', {:controller => :plan, :action => :index} %></li>
+            <li><%= link_to 'Lineups', {:controller => :lineups, :action => :index} %></li>
+            <li><%= link_to 'Standings', {:controller => :standings, :action => :index} %></li>
+            <li><%= link_to 'Taxi Draft', {:controller => :taxi, :action => :index} %></li>
           <ul>
         </div>
       </div>

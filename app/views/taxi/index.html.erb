@@ -1,17 +1,5 @@
 <div class="container">
-  <div class="row-fluid">
-	<% if @result == 'good'%>
-		<script type="text/javascript">
-		var snd = new Audio('c.wav');
-		snd.play();
-	  </script>
-	<% elsif @result=='bad' %>
-		<script type="text/javascript">
-		var snd = new Audio('b.wav');
-		snd.play();
-	  </script>
-	<% end %>
-	
+  <div class="row-fluid">	
 		<% @actualTeams = Team.where(year_id:2)%>
 		<% @actualTeams.shift%>
 		<% @positions = ['C', 'C', '1B', '2B', 'SS', 'MI', '3B',
@@ -21,7 +9,7 @@
 		<% @actualTeams.each_with_index do |t, i|%>
 			
 			<% if i == 4%>
-			<div class="span4" style="width: 350px;">
+			<div class="span4" style="width: 250px;">
 				<div class="span6">
 					<%= form_tag({:controller => 'home',
 					              :action => 'changeTeam'},{
@@ -78,7 +66,7 @@
 			<div class="span2" style="width: 175px;">
 			<table class="table table-condensed drag" id="<%=t.teamName%>">
 				<th><%= t.teamName %></th><th><%=t.sbcScore%></th><th>$</th>
-				<% t.startingLineup.each_with_index do |p,i|%>
+				<% t.benchLineup.each_with_index do |p,i|%>
 					<tr>
 						<% if p != nil%>
 						<% if p.position.include? 'SP'  or p.position.include? 'RP'%>
@@ -98,10 +86,11 @@
 			
 				<% end %>
 				<tr><td>
-				Available: <%= t.available%>
+				Available: <%= 260 - t.players.sum(&:sbcValue)	%>
 				</tr></td>
+
 				<tr><td>
-					Max bid: <%= t.maxBid%> 				
+					Max bid: <%= (260 - t.players.sum(&:sbcValue) - (23 - t.startingLineup.count))%> 				
 				</td></tr>
 			</table>
 			</div>
@@ -161,10 +150,7 @@
 			</div><div class="span12">
 			<%= form.label :espnNotes, "ESPN Notes:"%>
 			<p id="player_espnNotes" />
-			<label for="injury">Injury Notes:</label>
-			<p id="injury" />		
 			</div>
-			
 		</div>
 	</div>
 
@@ -226,9 +212,7 @@
 			</div><div class="span12">
 			<%= form.label :pespnNotes, "ESPN Notes:"%>
 			<p id="player_pespnNotes" />
-			<label for="pInjury">Injury Notes:</label>
-			<p id="pInjury"/>
-			</div>			
+			</div>
 		</div>
 
 	</div>

@@ -16,4 +16,4 @@
 //= require twitter/bootstrap
 //= require_tree .
 //= require jquery-tablesorter
-
+//= require jquery.tablednd_0_5

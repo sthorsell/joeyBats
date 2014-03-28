@@ -11,9 +11,7 @@ class HomeController < ApplicationController
     @players.sort! {|b,a| a.espnValue <=> b.espnValue}
     puts params
     @result = session[:res]
-		session[:res] = 'neutral'
-
-  
+		session[:res] = 'neutral'  
   end
   
   def changeTeam
@@ -22,10 +20,17 @@ class HomeController < ApplicationController
       @players = Player.find_all_by_team_id(params[:playerSelect])
       @currentTeam = params[:playerSelect] 
     end
+
+    hittingCats = ['AVG', 'SB', 'RBI', 'HR', 'R']
+    pitchingCats = ['ERA', 'WHIP', 'W', 'PK', 'SV']
     
     if params[:posSelect] != "All"
       @currentPos = params[:posSelect]
-      @players = Player.where("position like ? and team_id=?", "%#{params[:posSelect]}%", params[:playerSelect])
+      if hittingCats.include? params[:statSelect]
+        @players = Player.where("ab is not null and team_id=?", params[:playerSelect])
+      elsif pitchingCats.include? params[:statSelect]
+        @players = Player.where("ip is not null and team_id=?", params[:playerSelect])
+      end
     end
     
     if params[:statSelect] != "espnValue"
@@ -41,8 +46,26 @@ class HomeController < ApplicationController
       elsif params[:statSelect] == "HR"
         @players.sort! {|b,a| a.hr <=> b.hr}
         @currentSort = params[:statSelect]
+      elsif params[:statSelect] == "R"
+        @players.sort! {|b,a| a.r <=> b.r}
+        @currentSort = params[:statSelect]
+      elsif params[:statSelect] == "RBI"
+        @players.sort! {|b,a| a.rbi <=> b.rbi}
+        @currentSort = params[:statSelect]
       elsif params[:statSelect] == "PK"
         @players.sort! {|b,a| a.pk <=> b.pk}
+        @currentSort = params[:statSelect]
+      elsif params[:statSelect] == "ERA"
+        @players.sort! {|a,b| a.era <=> b.era}
+        @currentSort = params[:statSelect]
+      elsif params[:statSelect] == "WHIP"
+        @players.sort! {|a,b| a.whip <=> b.whip}
+        @currentSort = params[:statSelect]
+      elsif params[:statSelect] == "W"
+        @players.sort! {|b,a| a.w <=> b.w}
+        @currentSort = params[:statSelect]
+      elsif params[:statSelect] == "SV"
+        @players.sort! {|b,a| a.sv <=> b.sv}
         @currentSort = params[:statSelect]
       end
       puts @players.first.first

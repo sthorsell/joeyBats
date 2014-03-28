@@ -1,7 +1,9 @@
 JoeyBats::Application.routes.draw do
 
+  # Definetely need some cleanup in here
   get "home/index"
   post "home/index"
+  get "taxi/index"
   get "home/read"
   get "home/destroy"
   get "home/changeTeam"
@@ -14,11 +16,16 @@ JoeyBats::Application.routes.draw do
   
   get "settings/index"
   get "settings/loadStuff"
+  get "settings/loadLineups"
+  get "settings/getValues"
+  get "standings/index"
   get "plan/index"
+  get "lineups/index"
   post "plan/save"
   match "/players/:id" => "players#show"
   # match "/players/data/:id" => "players#d"
   match "/teams/:id" => "teams#getPositions"
+  match "/updateTeams" => "teams#updatePositions"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

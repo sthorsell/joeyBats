@@ -1,14 +1,28 @@
 <!-- <script type="text/javascript" src="/path/to/jquery.tablesorter.js"></script>  -->
 <% @players = Player.where(team_id:2) %>
-<table id="test" cellspacing="1" class="tablesorter">             
-    <thead>
-        <th>name</th>
-    </thead> 
-    <tbody> 
-        <% @players.each do |pl| %>
-            <tr>
-            <td><%=pl.first%></td>
-            </tr>
-        <%end%>
-    </tbody> 
-</table>
+<table class="table table-condensed tablesorter span12" id="mainTable">
+                <thead>
+                <tr>
+                <th>Name</th>
+                <th class="filter-select" data-placeholder="Select a name">City</th>
+                <th>
+                </th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @players.each do |pl| %>
+                <% if pl.position.include? 'SP'  or pl.position.include? 'RP'%>
+                    <% @link = '#pModal'%>
+                <% else %>
+                    <% @link = '#myModal'%>
+                <% end %>
+                <tr><td><a href="<%=@link%>" role="button" class="open-myModal btn btn-mini btn-primary"
+                     data-target="<%=@link%>" data-id="<%= pl.id%>" data-toggle="modal"><%= pl.first%></a></td>
+                <td>
+                    <%= pl.position%>
+                </td>
+                <td>$<%=pl.espnValue%></td>
+                </tr>
+                <% end %>
+                </tbody>
+                </table>

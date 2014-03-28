@@ -1,0 +1,15 @@
+<% @actualTeams = Team.where(year_id:2)%>
+<% @actualTeams.shift%>
+
+<table class = "table table condensed">
+		<thead></thead>
+		<% @actualTeams.sort {|b,a| a.sbcScore <=> b.sbcScore}.each do |al|%>
+				<th><td colspan="5"><h4><%= al.teamName%>:<%= al.sbcScore%></h3></td></th>
+				<tr>
+				<td>K:<%=al.teamPk%></td><td>ERA:<%=al.teamEra%></td><td>WHIP:<%=al.teamWhip%></td><td>W:<%=al.teamW%></td><td>SV:<%=al.teamSv%></td>
+				</tr>
+				<tr>
+				<td>HR:<%=al.teamHr%></td><td>RBI:<%=al.teamRbi%></td><td>R:<%=al.teamR%></td><td>AVG:<%=al.teamAvg%></td><td>SB:<%=al.teamSb%></td>
+				</tr>
+		<% end%>
+</table>

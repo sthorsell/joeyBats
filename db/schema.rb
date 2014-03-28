@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140323182055) do
+ActiveRecord::Schema.define(:version => 20140327192743) do
 
   create_table "add_our_value_to_players", :force => true do |t|
     t.integer  "ourValue"
@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(:version => 20140323182055) do
   create_table "players", :force => true do |t|
     t.string   "first"
     t.string   "last"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "ab"
     t.integer  "r"
     t.integer  "hr"
@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(:version => 20140323182055) do
     t.float    "whip"
     t.float    "k9"
     t.integer  "starter_id"
+    t.integer  "starter"
+    t.string   "injuryNotes"
   end
 
   create_table "teams", :force => true do |t|
