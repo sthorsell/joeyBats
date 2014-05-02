@@ -21,14 +21,13 @@
 		<% @actualTeams.each_with_index do |t, i|%>
 			
 			<% if i == 4%>
-			<div class="span4" style="width: 350px;">
-				<div class="span6">
+			<div class="span4">
+				<span>
 					<%= form_tag({:controller => 'home',
 					              :action => 'changeTeam'},{
 					             :id => 'teamSelect',:method => 'get'}) do %>
-					
-				</div>
-				<div class="span6">
+				</span>
+				<span>
 					  <%= select_tag :playerSelect, options_from_collection_for_select(@teams, 'id',
 					 'teamName', @currentTeam), :class => "span12", :onchange =>
 					 ("$('#teamSelect').submit()")%>
@@ -38,14 +37,16 @@
 					 ['WHIP','WHIP'],['W','W'],['K','PK'],['SV','SV']], @currentSort), :class => "span12",
 					 :onchange =>
 					 ("$('#teamSelect').submit()")%>
-				</div>
+				</span>
 				<% end %>
 				<table class="table table-condensed tablesorter span12" id="mainTable">
 				<thead>
 				<tr>
 				<th data-placeholder="Pos">Name</th>
 				<th data-placeholder="Pos">Pos</th>
-				<th data-placeholder="Pos">
+				<th data-placeholder="$">
+				<th data-placeholder="Starter">Starter</th>
+				<th data-placeholder="MLB">MLB</th>
 				</th>
 				</tr>
 				</thead>
@@ -62,11 +63,12 @@
 					<%= pl.position%>
 				</td>
 				<td>$<%=pl.espnValue%></td>
+				<td><%=pl.starter%>
+				<td><%=pl.majorStatus%></td>
 				</tr>
 				<% end %>
 				</tbody>
 				</table>
-					<%= link_to '<i class="icon-wrench"></i>'.html_safe, {:controller => :settings, :action => :loadStuff}, :confirm=>'Are you sure you want to load new players?'%>
 		    </div>
 				</div>
 				<div class="row-fluid">
@@ -75,7 +77,7 @@
 				</div>
 				<div class="row-fluid">
 			<% end %>
-			<div class="span2" style="width: 175px;">
+			<div class="span2">
 			<table class="table table-condensed drag" id="<%=t.teamName%>">
 				<th><%= t.teamName %></th><th><%=t.sbcScore%></th><th>$</th>
 				<% t.startingLineup.each_with_index do |p,i|%>

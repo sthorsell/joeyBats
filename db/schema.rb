@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140327192743) do
+ActiveRecord::Schema.define(:version => 20140328202114) do
 
   create_table "add_our_value_to_players", :force => true do |t|
     t.integer  "ourValue"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(:version => 20140327192743) do
     t.integer  "starter_id"
     t.integer  "starter"
     t.string   "injuryNotes"
+    t.integer  "majorStatus"
   end
 
   create_table "teams", :force => true do |t|

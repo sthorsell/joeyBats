@@ -193,7 +193,9 @@ class SettingsController < ApplicationController
               p.css('td')[2].text == '5' or p.css('td')[2].text == '6' or
               p.css('td')[2].text == '7' or p.css('td')[2].text == '8' or
               p.css('td')[2].text == '9' or p.css('td')[2].text == 'CL' or
-              p.css('td')[2].text == 'SU' or p.css('td')[2].text == 'DL'
+              p.css('td')[2].text == 'SU' or p.css('td')[2].text == 'DL' or
+              p.css('td')[2].text == 'MID' or p.css('td')[2].text == 'LR' or
+              p.css('td')[2].text == 'B'              
 
             )
             pos = p.css('td')[4].text
@@ -201,7 +203,8 @@ class SettingsController < ApplicationController
             pl = Player.where([" created_at between ? AND ?", Time.zone.now.beginning_of_year, Time.zone.now.end_of_year]).find_by_first(name)
             if pl != nil
               
-              if
+              if p.css('td')[2].text != 'DL' and p.css('td')[2].text != 'MID' and 
+                p.css('td')[2].text != 'LR' and p.css('td')[2].text != 'B'
                 pl.starter = 1
               end
               if p.css('td')[21].text != ''
@@ -212,6 +215,7 @@ class SettingsController < ApplicationController
                   pl.injuryNotes = p.css('td')[21].text + p.css('td')[22].text
                 end
               end
+              pl.majorStatus = 1
               pl.save
             end
           end

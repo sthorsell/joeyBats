@@ -1,6 +1,7 @@
-<%= link_to '<i class="icon-wrench"></i>'.html_safe, {:controller => :settings, :action => :loadLineups}, :confirm=>'Are you sure you want to load new starters?'%>
-<%= link_to '<i class="icon-wrench"></i>'.html_safe, {:controller => :settings, :action => :getValues}, :confirm=>'Are you sure you want to load new values?'%>
-
+<span class="span12"><%= link_to '<i class="icon-wrench"></i>Starters'.html_safe, {:controller => :settings, :action => :loadLineups}, :confirm=>'Are you sure you want to load new starters?'%>
+<%= link_to '<i class="icon-wrench"></i>Values'.html_safe, {:controller => :settings, :action => :getValues}, :confirm=>'Are you sure you want to load new values?'%>
+<%= link_to '<i class="icon-wrench"></i>Load Players'.html_safe, {:controller => :settings, :action => :loadStuff}, :confirm=>'Are you sure you want to load new players?'%>
+</span>
 <% @mlbT.each do|t|%>
 <table class="table table-condensed drag span2">
 			<%if t[0] != nil %>
@@ -17,12 +18,11 @@
 							 btn-primary"
 							 data-target="<%=@link%>" data-id="<%= p.id%>" data-toggle="modal"><%=
 							 p.first%></a></td>						
-						<td></td>
+						<td><%=p.position%>,<%=p.starter_id%></td>
 						<%else%><td></td><td></td>
 						<%end%>
 						<td></td>
-					</tr>
-			
+					</tr>			
 				<% end %>
 			<% end %>
 </table>

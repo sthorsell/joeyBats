@@ -60,7 +60,7 @@ $(document).on("click", ".open-myModal", function () {
      $("#cafeId").val( myBookId );
      $("#pcafeID1").val( myBookId );
      $("#player_pcafeID1").val( myBookId );
-	$("#player_cafeID1").val( $("#cafeId").val() );
+	 $("#player_cafeID1").val( $("#cafeId").val() );
 	
 	
 	$.getJSON("/players/" + myBookId, function(data) {
@@ -74,9 +74,9 @@ $(document).on("click", ".open-myModal", function () {
 		if(obj.espnValue == null)
 			obj.espnValue = ''
 
-
-		$("#name").text(obj.first + ' ' + obj.position + ' ' + obj.mlbTeam);
-		$("#pname").text(obj.first + ' ' + obj.position + ' ' + obj.mlbTeam);
+		var title = obj.first + ' ' + obj.position + ' ' + obj.mlbTeam + ' ' + 'Starter:' + obj.starter + ' ' + "Majors:" + obj.majorStatus;
+		$("#name").text(title);
+		$("#pname").text(title);
 		
 		$("#right").text('ESPNValue: $' + obj.espnValue);
 		$("#pright").text('ESPNValue: $' + obj.espnValue);
@@ -126,6 +126,38 @@ $(document).on("click", ".open-myModal", function () {
 });
 
 $(document).on("change", "#player_teamSelect", function () {
+	// Refactor this into position load above	
+     var myBookId = $(this).data('id');
+     var teamId = this.value;
+
+		$.getJSON("/teams/" + teamId, function(data) {
+
+		console.log(data);
+		$('#player_pteamPos').empty();
+		$('#player_pteamPos').append($("<option></option>").attr("value",-1).text('Select'));
+		$.each(data, function (index, value) {
+			var opt = $("<option></option>").attr("value",index).text(value[0]);
+			if(value[1] === true) {
+				opt.prop("disabled", true); 
+			}
+    		$('#player_pteamPos').append(opt);
+		});
+		$('#player_pteamPos').val(-1);
+
+		$('#player_teamPos').empty();
+		$('#player_teamPos').append($("<option></option>").attr("value",-1).text('Select'));
+		$.each(data, function (index, value) {
+			var opt = $("<option></option>").attr("value",index).text(value[0]);
+			if(value[1] === true) {
+				opt.prop("disabled", true); 
+			}
+    		$('#player_teamPos').append(opt);
+		});
+		$('#player_teamPos').val(-1);
+		
+	});	
+});
+$(document).on("change", "#player_pteamSelect", function () {
 	// Refactor this into position load above	
      var myBookId = $(this).data('id');
      var teamId = this.value;
