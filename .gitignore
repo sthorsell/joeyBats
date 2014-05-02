@@ -16,3 +16,8 @@
 
 # Ignore import code
 /app/controllers/settings_controller.rb
+
+# Ignore ds store
+.DS_STORE	
+
+/public/*.wav
